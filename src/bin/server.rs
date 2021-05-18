@@ -6,7 +6,7 @@ use std::sync::{Arc, Mutex};
 use message_io::node;
 use message_io::network::{NetEvent, Transport};
 
-use multi::messages::{FromClientMessage};
+use multi::messages::{FromClientMessage, Cmd};
 use multi::world::WorldState;
 use multi::player::Player;
 
@@ -37,9 +37,24 @@ fn main() {
                 let message: FromClientMessage = bincode::deserialize(&input_data).unwrap();
                 let t_clients = t_clients.lock().unwrap();
                 let player_id = t_clients.get(&endpoint).unwrap();
+                
+                let mut t_world = t_world.lock().unwrap();
+                let mut player = t_world.players.get_mut(player_id).unwrap();
                 for cmd in message.cmds.iter() {
-                    // process command here - update state of the world
-                    println!("cmd received from {}: {:?}", player_id, cmd);
+                    match cmd {
+                        Cmd::Up => {
+                            player.pos.y -= 4;
+                        }
+                        Cmd::Down => {
+                            player.pos.y += 4;
+                        }
+                        Cmd::Left => {
+                            player.pos.x -= 4;
+                        }
+                        Cmd::Right => {
+                            player.pos.x += 4;
+                        }
+                    }
                 }
             }
             NetEvent::Connected(endpoint, _) => {
