@@ -1,4 +1,5 @@
 use tetra::Context;
+
 use tetra::graphics::mesh::{Mesh, ShapeStyle};
 use tetra::graphics::text::{Font, Text};
 use tetra::graphics::{DrawParams, Rectangle};
@@ -8,7 +9,7 @@ use serde::{Serialize, Deserialize};
 
 use crate::constants::*;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Chunk {
     x: i32,
     y: i32,

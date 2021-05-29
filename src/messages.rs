@@ -11,11 +11,20 @@ pub enum Cmd {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct FromClientMessage {
-    pub cmds: Vec<Cmd>,
+pub enum FromClientMessage {
+    Update {
+        cmds: Vec<Cmd>
+    },
+    Init {
+        username: String,
+    },
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct FromServerMessage {
-    world: WorldState,
+pub enum FromServerMessage {
+    Tick {
+        world: WorldState,
+    },
+    ConnectionSuccess,
+    ConnectionError(String),
 }

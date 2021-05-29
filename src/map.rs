@@ -5,7 +5,7 @@ use serde::{Serialize, Deserialize};
 use crate::chunk::Chunk;
 use crate::constants::*;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Map {
     pub chunks: Vec<Vec<Chunk>>,
 }

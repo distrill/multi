@@ -5,7 +5,7 @@ use serde::{Serialize, Deserialize};
 use crate::map::Map;
 use crate::player::Player;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct WorldState {
     pub players: HashMap<String, Player>,
     pub map: Map,
